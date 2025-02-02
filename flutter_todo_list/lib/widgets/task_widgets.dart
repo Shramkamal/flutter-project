@@ -1,3 +1,4 @@
+// task_widgets.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_list/const/colors.dart';
 import 'package:flutter_todo_list/data/firestor.dart';
@@ -6,7 +7,8 @@ import 'package:flutter_todo_list/screen/edit_screen.dart';
 
 class Task_Widget extends StatefulWidget {
   final Note _note;
-  Task_Widget(this._note, {super.key});
+  final bool isOld;
+  Task_Widget(this._note, {super.key, this.isOld = false});
 
   @override
   State<Task_Widget> createState() => _Task_WidgetState();
@@ -16,40 +18,52 @@ class _Task_WidgetState extends State<Task_Widget> {
   @override
   Widget build(BuildContext context) {
     bool isDone = widget._note.isDon;
+
+    // Use a beautiful red gradient when the task is older than 24 hours and not done.
+    final BoxDecoration containerDecoration = BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      // If overdue and not done, use gradient; otherwise, use white background.
+      gradient: (widget.isOld && !isDone)
+          ? const LinearGradient(
+              colors: [Color.fromARGB(255, 247, 46, 28), Color.fromARGB(255, 255, 0, 0)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            )
+          : null,
+      color: (widget.isOld && !isDone) ? null : Colors.white,
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          spreadRadius: 5,
+          blurRadius: 7,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    );
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Container(
         width: double.infinity,
         height: 130,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: Offset(0, 2),
-            ),
-          ],
-        ),
+        decoration: containerDecoration,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
             children: [
               imageee(),
-              SizedBox(width: 25),
+              const SizedBox(width: 25),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           widget._note.title,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -70,11 +84,12 @@ class _Task_WidgetState extends State<Task_Widget> {
                     Text(
                       widget._note.subtitle,
                       style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey.shade400),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: const Color.fromARGB(255, 81, 80, 80),
+                      ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     edit_time()
                   ],
                 ),
@@ -99,17 +114,14 @@ class _Task_WidgetState extends State<Task_Widget> {
               borderRadius: BorderRadius.circular(18),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 6,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               child: Row(
                 children: [
                   Image.asset('images/icon_time.png'),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Text(
                     widget._note.time,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -119,7 +131,7 @@ class _Task_WidgetState extends State<Task_Widget> {
               ),
             ),
           ),
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -130,19 +142,17 @@ class _Task_WidgetState extends State<Task_Widget> {
               width: 90,
               height: 28,
               decoration: BoxDecoration(
-                color: Color(0xffE2F6F1),
+                color: const Color(0xffE2F6F1),
                 borderRadius: BorderRadius.circular(18),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 child: Row(
                   children: [
                     Image.asset('images/icon_edit.png'),
-                    SizedBox(width: 10),
-                    Text(
+                    const SizedBox(width: 10),
+                    const Text(
                       'edit',
                       style: TextStyle(
                         fontSize: 14,

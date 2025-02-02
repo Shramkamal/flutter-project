@@ -38,6 +38,7 @@ class Firestore_Datasource {
         'image': image,
         'time': '${data.hour}:${data.minute}',
         'title': title,
+        'createdAt': FieldValue.serverTimestamp(), // Store the creation time
       });
       return true;
     } catch (e) {
@@ -57,6 +58,9 @@ class Firestore_Datasource {
           data['image'],
           data['title'],
           data['isDon'],
+          data['createdAt'] != null
+              ? (data['createdAt'] as Timestamp).toDate()
+              : DateTime.now(), // Convert to DateTime properly
         );
       }).toList();
       return notesList;
