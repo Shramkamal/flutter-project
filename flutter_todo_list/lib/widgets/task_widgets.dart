@@ -25,7 +25,10 @@ class _Task_WidgetState extends State<Task_Widget> {
       // If overdue and not done, use gradient; otherwise, use white background.
       gradient: (widget.isOld && !isDone)
           ? const LinearGradient(
-              colors: [Color.fromARGB(255, 247, 46, 28), Color.fromARGB(255, 255, 0, 0)],
+              colors: [
+                Color.fromARGB(255, 255, 255, 255),
+                Color.fromARGB(255, 255, 0, 0)
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             )
