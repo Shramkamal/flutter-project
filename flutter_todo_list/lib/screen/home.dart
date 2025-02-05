@@ -60,13 +60,6 @@ class _Home_ScreenState extends State<Home_Screen> {
           child: Column(
             children: [
               Stream_note(false),
-              Text(
-                'isDone',
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey.shade500,
-                    fontWeight: FontWeight.bold),
-              ),
               Stream_note(true),
             ],
           ),

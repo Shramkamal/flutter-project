@@ -22,17 +22,25 @@ class _Task_WidgetState extends State<Task_Widget> {
     // Use a beautiful red gradient when the task is older than 24 hours and not done.
     final BoxDecoration containerDecoration = BoxDecoration(
       borderRadius: BorderRadius.circular(10),
-      // If overdue and not done, use gradient; otherwise, use white background.
-      gradient: (widget.isOld && !isDone)
+      gradient: (isDone)
           ? const LinearGradient(
               colors: [
                 Color.fromARGB(255, 255, 255, 255),
-                Color.fromARGB(255, 255, 0, 0)
+                Color.fromARGB(255, 0, 128, 0) // Green gradient
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             )
-          : null,
+          : (widget.isOld && !isDone)
+              ? const LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 255, 255, 255),
+                    Color.fromARGB(255, 255, 0, 0) // Red gradient
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
+              : null,
       color: (widget.isOld && !isDone) ? null : Colors.white,
       boxShadow: [
         BoxShadow(
