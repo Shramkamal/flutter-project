@@ -14,8 +14,7 @@ class AuthenticationRemote extends AuthenticationDatasource {
   }
 
   @override
-  Future<void> register(
-      String email, String password, String PasswordConfirm) async {
+  register(String email, String password, String PasswordConfirm) async {
     if (PasswordConfirm != password) {
       throw Exception('Passwords do not match.');
     }
