@@ -23,14 +23,12 @@ class Stream_note extends StatelessWidget {
           itemCount: noteslist.length,
           itemBuilder: (context, index) {
             final note = noteslist[index];
-            // note.timestamp is now a DateTime, not a Timestamp
             DateTime noteDate = note.timestamp;
             DateTime now = DateTime.now();
             bool isOlderThan24Hours = now.difference(noteDate).inHours >= 24;
 
             return Dismissible(
               key: UniqueKey(),
-              // Show the delete icon on both sides when swiping
               background: Container(
                 alignment: Alignment.centerLeft,
                 padding: const EdgeInsets.only(left: 20),
@@ -56,7 +54,7 @@ class Stream_note extends StatelessWidget {
               },
               child: Task_Widget(
                 note,
-                isOld: isOlderThan24Hours, // Pass condition to Task_Widget
+                isOld: isOlderThan24Hours, 
               ),
             );
           },

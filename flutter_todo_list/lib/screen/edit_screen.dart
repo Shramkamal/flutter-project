@@ -30,8 +30,6 @@ class _Edit_ScreenState extends State<Edit_Screen>
     _focusNode1 = FocusNode();
     _focusNode2 = FocusNode();
 
-    // Initialize the selected image index using the note's image value.
-    // If widget._note.image is not a valid integer, default to 0.
     indexx = widget._note.image;
 
     _controller = AnimationController(
@@ -91,12 +89,11 @@ class _Edit_ScreenState extends State<Edit_Screen>
             minimumSize: const Size(170, 48),
           ),
           onPressed: () {
-            // Update note with the new image index along with title and subtitle.
             Firestore_Datasource().Update_Note(
                 widget._note.id, indexx, title!.text, subtitle!.text);
             Navigator.pop(context);
           },
-          child: const Text('add task'),
+          child: const Text('add task', style: TextStyle(color: Colors.green)),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -106,7 +103,7 @@ class _Edit_ScreenState extends State<Edit_Screen>
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('Cancel'),
+          child: const Text('Cancel', style: TextStyle(color: Colors.black)),
         ),
       ],
     );
